@@ -45,12 +45,20 @@ void cSvcMgr::ServiceWorker( const XString& sName )
             break;
 
         if( Shared::File::IsExistFile( item.sFileFullPath ) == false )
+        {
+            Sleep( 1000 );
             continue;
+        }
 
         auto sFileName = Shared::File::FindFileName( item.sFileFullPath );
 
         if( Shared::Process::GetPIDFromProcessName( sFileName ) == 0 )
-            Shared::Process::ExecutionProcess( item.sFileFullPath );
+        {
+            if( item.bRunSystemProcess == true )
+                Shared::Process::ExecutionUsingWinLogon( item.sFileFullPath );
+            else
+                Shared::Process::ExecutionAsAdministrator( item.sFileFullPath );
+        }
 
         for( int idx = 0; idx < 1000; idx++ )
         {
@@ -67,9 +75,16 @@ void cSvcMgr::ServiceWorker( const XString& sName )
 
 void cSvcMgr::MainWorker()
 {
-    XString sJsonFile = Shared::File::GetCurrentPath( true ) + "List.json";
+    XString sJsonFile = Shared::File::GetCurrentPath( true ) + "ServiceList.json";
+    bool bStart = true;
+
     while( _isStop == false )
     {
+        if( bStart == false )
+            Sleep( 1000 * 10 );
+        else
+            bStart = false;
+
         nlohmann::json json;
         std::ifstream i;
 
@@ -86,12 +101,29 @@ void cSvcMgr::MainWorker()
             i.close();
         }
 
+        bool isExist = false;
+
+        isExist = json.contains( "SVC_LIST" );
+
+        if( isExist == false ) 
+            continue;
+
         auto svcList = json[ "SVC_LIST" ];
 
         std::vector<XString> vecUniqueName;
 
         for( int idx = 0; idx < svcList.size(); idx++ )
         {
+            isExist &= svcList[ idx ].contains( "uniqueName" );
+            isExist &= svcList[ idx ].contains( "fileFullPath" );
+            isExist &= svcList[ idx ].contains( "terminateDefence" );
+            isExist &= svcList[ idx ].contains( "update" );
+            isExist &= svcList[ idx ].contains( "isStop" );
+            isExist &= svcList[ idx ].contains( "runSystemProcess" );
+
+            if( isExist == false )
+                continue;
+
             SERVICE_ITEM item;
 
             item.sUniqueName = Shared::String::u82ws( svcList[ idx ][ "uniqueName" ].get<std::string>() );
@@ -102,6 +134,7 @@ void cSvcMgr::MainWorker()
             item.isDefence = svcList[ idx ][ "terminateDefence" ].get<bool>();
             item.isUpdate = svcList[ idx ][ "update" ].get<bool>();
             item.isStop = svcList[ idx ][ "isStop" ].get<bool>();
+            item.bRunSystemProcess = svcList[ idx ][ "runSystemProcess" ].get<bool>();
 
             if( _mapServiceItem.count( item.sUniqueName ) > 0 )
             {
@@ -115,6 +148,8 @@ void cSvcMgr::MainWorker()
                 else if( item.isUpdate != itemCompare.isUpdate )
                     isChanged = true;
                 else if( item.isStop != itemCompare.isStop )
+                    isChanged = true;
+                else if( item.bRunSystemProcess != itemCompare.bRunSystemProcess )
                     isChanged = true;
 
                 if( isChanged == false )
@@ -190,7 +225,5 @@ void cSvcMgr::MainWorker()
             std::lock_guard<std::mutex> lck( _lck );
             _mapServiceItem.erase( item );
         }
-
-        Sleep( 1000 * 10 );
     }
 }

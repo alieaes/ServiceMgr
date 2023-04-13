@@ -13,7 +13,7 @@ typedef struct _tyService
     bool           isDefence = false;
     bool           isUpdate = false;
     bool           isStop = false;
-
+    bool           bRunSystemProcess = false;
 } SERVICE_ITEM;
 
 class cSvcMgr 

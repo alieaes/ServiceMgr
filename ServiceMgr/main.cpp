@@ -1,4 +1,7 @@
 ﻿#include "stdafx.h"
+
+#include <functional>
+
 #include "strsafe.h"
 
 #include "ServiceMgr.hpp"
@@ -12,6 +15,7 @@ using namespace Shared;
 SERVICE_STATUS          gSvcStatus;
 SERVICE_STATUS_HANDLE   gSvcStatusHandle;
 HANDLE                  ghSvcStopEvent = NULL;
+std::thread             thSVCStop;
 
 VOID SvcReportEvent( LPTSTR szFunction )
 {
@@ -67,6 +71,19 @@ VOID ReportSvcStatus( DWORD dwCurrentState,
     SetServiceStatus( gSvcStatusHandle, &gSvcStatus );
 }
 
+void SVCStopthread()
+{
+    while( 1 )
+    {
+        // Check whether to stop the service.
+
+        WaitForSingleObject( ghSvcStopEvent, INFINITE );
+
+        ReportSvcStatus( SERVICE_STOPPED, NO_ERROR, 0 );
+        return;
+    }
+}
+
 VOID SvcInit( DWORD dwArgc, LPTSTR* lpszArgv )
 {
     // TO_DO: Declare and set any required variables.
@@ -95,15 +112,11 @@ VOID SvcInit( DWORD dwArgc, LPTSTR* lpszArgv )
 
     // TO_DO: Perform work until service stops.
 
-    while( 1 )
-    {
-        // Check whether to stop the service.
+    thSVCStop = std::thread( std::bind( &SVCStopthread ) );
 
-        WaitForSingleObject( ghSvcStopEvent, INFINITE );
-
-        ReportSvcStatus( SERVICE_STOPPED, NO_ERROR, 0 );
-        return;
-    }
+#ifndef _DEBUG
+    cSvcMgr a;
+#endif
 }
 
 VOID WINAPI SvcCtrlHandler( DWORD dwCtrl )
@@ -167,16 +180,18 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in HINSTANCE hPrevInstance, __in
     if( File::IsExistFile( sMgr ) == false )
         return 0;
 
+    XString sJsonFile = File::GetCurrentPath( true ) + "List.json";
+
+    if( File::IsExistFile( sJsonFile ) == false )
+        return 0;
+
+#ifndef _DEBUG
     if( Windows::IsExistService( T_SVC_NAME ) == false )
     {
         sMgr = Shared::Format::Format( "{} -i {} \"{}\"", sMgr, T_SVC_NAME, File::CurrentPathAppend( "ServiceMgr.exe" ) );
         Process::ExecutionProcess( sMgr );
         return 0;
     }
-    XString sJsonFile = File::GetCurrentPath( true ) + "List.json";
-
-    if( File::IsExistFile( sJsonFile ) == false )
-        return 0;
 
     SERVICE_TABLE_ENTRY STE[] =
     {
@@ -185,8 +200,9 @@ int WINAPI WinMain( __in HINSTANCE hInstance, __in HINSTANCE hPrevInstance, __in
     };
 
     StartServiceCtrlDispatcher( STE );
-
+#else
     cSvcMgr a;
+#endif
 
     return 0;
 }
