@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Libs">
+      <UniqueIdentifier>{004793f6-6614-4e9a-bd8f-b6d769526071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\String">
+      <UniqueIdentifier>{1592dbf5-d186-4a90-85a4-38075df08cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Utils">
+      <UniqueIdentifier>{d2610c66-7b1c-451d-84e1-c691fe195a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\Windows">
+      <UniqueIdentifier>{ebd842b3-a2ef-4115-857f-30902912e2b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSvcStarter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Utils\SharedFile.cpp">
+      <Filter>Libs\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Utils\SharedUtils.cpp">
+      <Filter>Libs\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\String\SharedString.cpp">
+      <Filter>Libs\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\String\SharedXString.cpp">
+      <Filter>Libs\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Windows\SharedWinTools.cpp">
+      <Filter>Libs\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cSvcStarter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Utils\SharedFile.h">
+      <Filter>Libs\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Utils\SharedUtils.h">
+      <Filter>Libs\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedString.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedXString.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Windows\SharedWinTools.h">
+      <Filter>Libs\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Shared_Config.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SvcStarter.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
