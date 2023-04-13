@@ -13,10 +13,86 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Libs">
+      <UniqueIdentifier>{2545de83-8677-470e-88f9-d345a9726b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libs\String">
+      <UniqueIdentifier>{84b4091f-d3e4-4634-9dcc-d06eabb6cab8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServiceMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\String\SharedString.cpp">
+      <Filter>Libs\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\String\SharedXString.cpp">
+      <Filter>Libs\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Utils\SharedFile.cpp">
+      <Filter>Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Windows\SharedWinTools.cpp">
+      <Filter>Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SharedLibs\Utils\SharedProcess.cpp">
+      <Filter>Libs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ServiceMgr.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Shared_Config.hpp">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Shared_Defs.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\SharedBase.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Singleton.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedString.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedXString.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedFormat.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\String\SharedFormatMgr.h">
+      <Filter>Libs\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Utils\SharedFile.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Windows\SharedWinTools.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SharedLibs\Utils\SharedProcess.h">
+      <Filter>Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ServiceMgr.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
